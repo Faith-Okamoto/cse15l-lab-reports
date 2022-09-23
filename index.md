@@ -10,7 +10,7 @@ Please **read all of the below**.
   
 - > Pymgy hippos are the best hippos.
 
-  *Don't believe me? See [here](/hippos.html)
+  *Don't believe me? See [here](/hippos.html)*
   
 - My family has two pets. In order of size:
 
