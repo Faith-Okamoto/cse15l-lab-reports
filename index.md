@@ -5,12 +5,18 @@
 Please **read all of the below**.
 
 - I am Faith Okamoto, a second year in Revelle College.
+
   ![Revelle College logo](https://revelle.ucsd.edu/_images/revelle-logo.png)
+  
 - > Pymgy hippos are the best hippos.
+
   *Don't believe me? See [here](/hippos.html)
+  
 - My family has two pets. In order of size:
+
   1. Snowball/Snowy, a Bichon mix. Small white dog, but larger than...
   2. Diana, a large black rabbit.
+  
   It may be hard to believe, but small dogs are larger than large rabbits.
 
 ---
