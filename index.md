@@ -4,7 +4,7 @@
 
 Please **read all of the below**.
 
-- I am Faith Okamoto, a second year in Revelle College.
+- I am Faith Okamoto, a second year (woot, survived the first one!) in Revelle College.
 
   ![Revelle College logo](https://revelle.ucsd.edu/_images/revelle-logo.png)
   
