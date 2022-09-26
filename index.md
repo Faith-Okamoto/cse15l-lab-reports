@@ -1,3 +1,7 @@
+# My lab reports
+
+1. [Week 0](lab-report-1-week-0.html)
+
 # Basic information
 
 ## Part 1: a listicle
@@ -10,7 +14,7 @@ Please **read all of the below**.
   
 - > Pymgy hippos are the best hippos.
 
-  *Don't believe me? See [here](/cse15l-lab-reports/index.html)*
+  *Don't believe me? See [here](hippos.html)*
   
 - My family has two pets. In order of size:
 
@@ -21,7 +25,7 @@ Please **read all of the below**.
 
 ---
 
-## What I'm doing right now, coding-wise.
+## Part 2: What I'm doing right now, coding-wise.
 
 I have a job at an on-campus lab. Currently they have me fiddling with a Shiny app. It uses R to create HTML. I knew the `ggplot2` package in R but I've had to learn new functions such as `dbGetQuery` and `renderUI`. There are a truly frightening number of packages used which I'm fairly unfamiliar with. See the top of the file:
 
