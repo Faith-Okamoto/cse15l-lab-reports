@@ -2,7 +2,7 @@ This is a tutorial on how to work with a course-specific account for `ieng6.ucsd
 
 1. Installing VScode
 
-    For this tutorial we will be using the terminal in VS Code. Thus, you will need to install it. Go to https://code.visualstudio.com/ and identify the installation for your operating system. Follow the instructions to download and install. Defaults for everything should be enough. When you open it, there should be a screen like this one:
+    For this tutorial we will be using the terminal in VS Code. Thus, you will need to install it. Go to <https://code.visualstudio.com/> and identify the installation for your operating system. Follow the instructions to download and install. Defaults for everything should be enough. When you open it, there should be a screen like this one:
 
     ![VS Code default screen](images/week1/vscode.PNG)
 
@@ -30,7 +30,7 @@ This is a tutorial on how to work with a course-specific account for `ieng6.ucsd
 
     Change your password following [this tutorial](https://docs.google.com/document/d/1hs7CyQeh-MdUfM9uv99i8tqfneos6Y8bDU0uhn1wqho/edit)
 
-    If the line below "Welcome, <name>" says that your username is your AD username, then make sure to switch to your course-specific account before changing your password. See below for what the account lookup landing at the wrong account looks like:
+    If the line below "Welcome, \<name\>" says that your username is your AD username, then make sure to switch to your course-specific account before changing your password. See below for what the account lookup landing at the wrong account looks like:
 
     ![Account lookup results for wrong account](images/week1/wrong-account.PNG)
 
