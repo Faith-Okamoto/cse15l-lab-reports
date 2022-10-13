@@ -104,10 +104,10 @@ That's a lot of code! Let's see it in action, then it should make more sense. He
 
     There would be a different message printed if nothing was found matching the query string, but fortunately this library is sufficiently dog-filled! Note that no matter what this block will not modify `library`, so it's the same as before.
 
-- <sup>1</sup> I passed 4000 to the command line, it has no significance.
-- <sup>2</sup> That stands for **U**niform **R**esource **L**ocator.
-- <sup>3</sup> The underlying implementation here is a `HashSet`, so adding new elements exactly equal to ones before wouldn't do anything.
-- <sup>4</sup> In particular, I added "doggo", "cat-dog", and "cat" using the same add page but with different queries. The exact queries used are left as an exercise for the reader: look at what was used to add "dog" and extend the idea.
+<sup>1</sup> I passed 4000 to the command line, it has no significance.  
+<sup>2</sup> That stands for **U**niform **R**esource **L**ocator.  
+<sup>3</sup> The underlying implementation here is a `HashSet`, so adding new elements exactly equal to ones before wouldn't do anything.  
+<sup>4</sup> In particular, I added "doggo", "cat-dog", and "cat" using the same add page but with different queries. The exact queries used are left as an exercise for the reader: look at what was used to add "dog" and extend the idea.
 
 ## Part 2
 
@@ -148,6 +148,6 @@ Now we will move on to what I did during Week 3's lab. I'll examine bugs found i
     - **Bug:** The line which adds the starting location to the output had to be wrapped in an if statement checking whether it was a directory or not.
     - **Why that fixed the problem:** The `File` passed to `getFiles` was being blindly added to the output, even though the specification said that only actual files should be included, sans any directory. By checking whether the input was a directory, and neglecting to include it in the output if so, the errant output escapes, leaving behind only what is proper.<sup>3</sup>
 
-- <sup>1</sup> Those still paying attention, after I made Part 1 objectively too long, may be noting a theme in the strings I use for testing :)
-- <sup>2</sup> Here `s` is a variable containing the current string. Hey, not a naming convention I chose.
-- <sup>3</sup> Look, it's past 8:30PM, I want to stop doing this, and historically that has meant that the words coming out of my fingers are of... questionable linguistic level for the task at hand.
+<sup>1</sup> Those still paying attention, after I made Part 1 objectively too long, may be noting a theme in the strings I use for testing :)  
+<sup>2</sup> Here `s` is a variable containing the current string. Hey, not a naming convention I chose.  
+<sup>3</sup> Look, it's past 8:30PM, I want to stop doing this, and historically that has meant that the words coming out of my fingers are of... questionable linguistic level for the task at hand.
