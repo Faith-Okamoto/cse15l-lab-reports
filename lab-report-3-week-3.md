@@ -80,10 +80,12 @@ class SearchEngine {
 That's a lot of code! Let's see it in action, then it should make more sense. Here are some screenshots; I'll explain each as we go.
 
 1. ![default page, says "Current string library to search through:" and then displays an empty array](images/week3/default.PNG)
+
     This is the default page. For it to appear, `SearchEngine`'s main method must have executed. As you can see at the bottom of the code, it set up a server via port 4000<sup>1</sup>. The server uses a `Handler` instance to handle URL<sup>2</sup> requests. 
     
     Because I'm on the default page the path is just `/`. Thus the `Handler`'s `handleRequest` method (which is passed the entire URL you see in the browser) will execute the part of the if statement within the first block: `if (url.getPath().equals("/"))`. This prints a standardized statement and then the current library contents. The library is of course empty, because we haven't added anything to it yet! Time to move on to some more fun parts of this server.
 2. ![add page, says "Added 'dog' to library"](images/week3/add.PNG)
+
     Look carefully at the top of the page. In this case the **path** is everything from the first `/` up to before the first `?`. Thus, the `handleRequest` method receives `/path` as the URL; the block within `else if (url.getPath().equals("/add"))` will be executed.
 
     What does this page do? Well, first it gets the **query**. That's a new word! Basically, it's the bit after the `?`. The `handleURL` does some input-structure checking with `if (query != null && query.split("=").length == 2 && query.split("=")[0].equals("s"))`. Let me explain how that works!
@@ -95,6 +97,7 @@ That's a lot of code! Let's see it in action, then it should make more sense. He
 
     Now that the query has been accepted as properly formatted, the word we tried to add is exacted and added to the library. There is some checking as to whether adding is necessary<sup>3</sup>. Depending on that, a message is printed acknowledging the word queried and informing the user as to what happened. We got a nice success message. At this point `library` contains the string "dog" and nothing else.
 3. ![search page, says "Matches found for 'dog':" and then an array with the items "doggo", "cat-dog", and "dog"](images/week3/search.PNG)
+
     I know I just said that the library only had one string, but for the purposes of this example being more interesting I added a few more in<sup>4</sup>. On this page the path is `/search`, so we're going to that block in `handleURL`, and the query is the same as before.
 
     The search page checks for valid queries exactly how the add page does. But what it does with the validated words is different, as you can see. It acknowledges the word which was search for and then prints out all the matches found in the library. Matches are found by a for-each loop through `library`. Each word is checked with a `.contains()` invocation. This ensures that the substring queried for may appear anywhere within the word. You can see how the query finds "dog" in varied places within the words.
