@@ -126,6 +126,7 @@ Now we will move on to what I did during Week 3's lab. I'll examine bugs found i
     ```
     Let's look at what this is doing. The first line, `@Test`, is just to tell the compiler that `testFilter` is a unit test and should be executed when running tests. Inside the test we create some inputs to give to the function. The first, `input`, will be an `ArrayList` which has two values: "dog1" and "dog2", in that order. The second, `checker`, will be a `DogChecker`, which is just a silly little `StringChecker` which checks whether `String`s start with "dog"<sup>1</sup>. Then we do the actual test... but I'll get to that in the next section.
     - **Symptom:** The `filter` method should remove any `String`s from the input `List` which fail the test laid out by the input `StringChecker`, but leave all the others in the correct order. Since both of the `String`s in the input start with "dog", they should be returned just as they are. But alas alack! Instead, they were returned in reverse order. What?
+
     ```
     >> java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore ListTests
     JUnit version 4.13.2
@@ -143,6 +144,7 @@ Now we will move on to what I did during Week 3's lab. I'll examine bugs found i
     FAILURES!!!
     Tests run: 2,  Failures: 1
     ```
+    
     - **Bug:** The line adding `String`s to the filtered list had to be changed from `.add(0, s)`<sup>2</sup> to `.add(s)`. In other words, this block (which checks if the current string passes and adds it to the return value if so), was previously:
     ```
     if(sc.checkString(s)) {
@@ -173,6 +175,7 @@ Now we will move on to what I did during Week 3's lab. I'll examine bugs found i
     ```
     Inside this test there's a try-catch statement. That's necessary because the method we're testing declares that it might throw and `IOException`. We don't expect to do that, though, since we're passing a legal path. As an input we give the directory `some-files/more-files`. It contains two files: `b.txt` and `c.java`.
     - **Symptom:** The `getFiles` method, in the case that it's passed a directory, should return an ArrayList of all the files within it. In this case that should be `b.txt` and `c.java`, but as fancy `File` objects, so that's the cause of such ado around constructing the `ArrayList` to compare against. However, more than that was returned: the output includes the very directory we passed. But that's not a file!
+
     ```
     >> java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore FileTests
     JUnit version 4.13.2
@@ -192,6 +195,7 @@ Now we will move on to what I did during Week 3's lab. I'll examine bugs found i
     FAILURES!!!
     Tests run: 2,  Failures: 2
     ```
+    
     - **Bug:** The line which adds the starting location to the output had to be wrapped in an if statement checking whether it was a directory or not, to prevent incorrect additions. So, the code which started as this:
     ```
     File f = start;
