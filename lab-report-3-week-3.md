@@ -95,7 +95,7 @@ That's a lot of code! Let's see it in action, then it should make more sense. He
 
     Note that the query used here passes all these tests, but if any failed then an error message would be printed with information about what the problem was.
 
-    Now that the query has been accepted as properly formatted, the word we tried to add is exacted and added to the library. There is some checking as to whether adding is necessary<sup>3</sup>. Depending on that, a message is printed acknowledging the word queried and informing the user as to what happened. We got a nice success message. At this point `library` contains the string "dog" and nothing else.
+    Now that the query has been accepted as properly formatted, the word we tried to add is extracted and added to the library. There is some checking as to whether adding is necessary<sup>3</sup>. Depending on that, a message is printed acknowledging the word queried and informing the user as to what happened. We got a nice success message. At this point `library` contains the string "dog" and nothing else.
 3. ![search page, says "Matches found for 'dog':" and then an array with the items "doggo", "cat-dog", and "dog"](images/week3/search.PNG)
 
     I know I just said that the library only had one string, but for the purposes of this example being more interesting I added a few more in<sup>4</sup>. On this page the path is `/search`, so we're going to that block in `handleURL`, and the query is the same as before.
@@ -126,7 +126,35 @@ Now we will move on to what I did during Week 3's lab. I'll examine bugs found i
     ```
     Let's look at what this is doing. The first line, `@Test`, is just to tell the compiler that `testFilter` is a unit test and should be executed when running tests. Inside the test we create some inputs to give to the function. The first, `input`, will be an `ArrayList` which has two values: "dog1" and "dog2", in that order. The second, `checker`, will be a `DogChecker`, which is just a silly little `StringChecker` which checks whether `String`s start with "dog"<sup>1</sup>. Then we do the actual test... but I'll get to that in the next section.
     - **Symptom:** The `filter` method should remove any `String`s from the input `List` which fail the test laid out by the input `StringChecker`, but leave all the others in the correct order. Since both of the `String`s in the input start with "dog", they should be returned just as they are. But alas alack! Instead, they were returned in reverse order. What?
-    - **Bug:** The line adding `String`s to the filtered list had to be changed from `.add(0, s)`<sup>2</sup> to `.add(s)`.
+    ```
+    >> java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore ListTests
+    JUnit version 4.13.2
+    ..E
+    Time: 0.006
+    There was 1 failure:
+    1) testFilter(ListTests)
+    java.lang.AssertionError: expected:<[dog1, dog2]> but was:<[dog2, dog1]>
+            at org.junit.Assert.fail(Assert.java:89)
+            at org.junit.Assert.failNotEquals(Assert.java:835)
+            at org.junit.Assert.assertEquals(Assert.java:120)
+            at org.junit.Assert.assertEquals(Assert.java:146)
+            at ListTests.testFilter(ListTests.java:19)
+
+    FAILURES!!!
+    Tests run: 2,  Failures: 1
+    ```
+    - **Bug:** The line adding `String`s to the filtered list had to be changed from `.add(0, s)`<sup>2</sup> to `.add(s)`. In other words, this block (which checks if the current string passes and adds it to the return value if so), was previously:
+    ```
+    if(sc.checkString(s)) {
+        result.add(0, s);
+    }
+    ```
+    but should have been:
+    ```
+    if(sc.checkString(s)) {
+        result.add(s);
+    }
+    ```
     - **Why that fixed the problem:** The `String`s in the input list were being looked at from first to last, as one would expect. However, they were all being added to the *front* of the filtered list. This meant that each pushed all the others back, so those encountered first would be at the back of the finished filtered list. Which of course reversed the final result! The fix was to append instead of prepend, which is what the index-less `add` method will do.
 2. This second is from the `FileExample` file, specifically its `getFiles` method.
     - **Failure-inducing input:**
@@ -145,7 +173,43 @@ Now we will move on to what I did during Week 3's lab. I'll examine bugs found i
     ```
     Inside this test there's a try-catch statement. That's necessary because the method we're testing declares that it might throw and `IOException`. We don't expect to do that, though, since we're passing a legal path. As an input we give the directory `some-files/more-files`. It contains two files: `b.txt` and `c.java`.
     - **Symptom:** The `getFiles` method, in the case that it's passed a directory, should return an ArrayList of all the files within it. In this case that should be `b.txt` and `c.java`, but as fancy `File` objects, so that's the cause of such ado around constructing the `ArrayList` to compare against. However, more than that was returned: the output includes the very directory we passed. But that's not a file!
-    - **Bug:** The line which adds the starting location to the output had to be wrapped in an if statement checking whether it was a directory or not.
+    ```
+    >> java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore FileTests
+    JUnit version 4.13.2
+    .E.E
+    Time: 0.008
+    There were 2 failures:
+    1) [test for a different problem]
+    2) testGetFilesDir(FileTests)
+    java.lang.AssertionError: expected:<[some-files\more-files\b.txt, some-files\more-files\c.java]> but was:<[some-files\more-files, some-files\more-files\b.txt, 
+    some-files\more-files\c.java]>
+            at org.junit.Assert.fail(Assert.java:89)
+            at org.junit.Assert.failNotEquals(Assert.java:835)
+            at org.junit.Assert.assertEquals(Assert.java:120)
+            at org.junit.Assert.assertEquals(Assert.java:146)
+            at FileTests.testGetFilesDir(FileTests.java:11)
+
+    FAILURES!!!
+    Tests run: 2,  Failures: 2
+    ```
+    - **Bug:** The line which adds the starting location to the output had to be wrapped in an if statement checking whether it was a directory or not, to prevent incorrect additions. So, the code which started as this:
+    ```
+    File f = start;
+    List<File> result = new ArrayList<>();
+	result.add(start);
+	if(f.isDirectory()) {
+        # handle case where f is a directory
+    }
+    ```
+    should instead be this:
+    ```
+    File f = start;
+    List<File> result = new ArrayList<>();
+	if(f.isFile()) result.add(start);
+	else if(f.isDirectory()) {
+        # handle case where f is a directory
+    }
+    ```
     - **Why that fixed the problem:** The `File` passed to `getFiles` was being blindly added to the output, even though the specification said that only actual files should be included, sans any directory. By checking whether the input was a directory, and neglecting to include it in the output if so, the errant output escapes, leaving behind only what is proper.<sup>3</sup>
 
 <sup>1</sup> Those still paying attention, after I made Part 1 objectively too long, may be noting a theme in the strings I use for testing :)  
