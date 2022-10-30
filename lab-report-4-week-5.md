@@ -149,7 +149,7 @@ $ grep -c "?" plos/pmed.0020191.txt
 2
 ```
 
-But if you recall, there were actually three question marks present in the file. It's just that two are on the same line. Yes, we could look through the actual matches on this file, since it's small, but what if you're running the same command on a large number of files and then doing manipulation on the output? Make sure the have the right expectations for what you're getting out of `-c`.
+But if you recall, there were actually three question marks present in the file. It's just that two are on the same line. Yes, we could look through the actual matches on this file, since it's small, but what if you're running the same command on a large number of files and then doing manipulation on the output? Make sure to have the right expectations for what you're getting out of `-c`.
 
 For the finale here, I thought I'd combine all the commands above to find which lines in the example file are unethical<sup>3</sup>. That is, how many lines lack any version of "ethic". And "any version" of course includes capitalization variants. In the wildly unlikely event that you're reading this and aren't familiar with `grep` already, think a bit before looking at the next code block. How *would* you string together options to do this?
 
