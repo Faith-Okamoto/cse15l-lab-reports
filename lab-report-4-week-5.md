@@ -76,7 +76,7 @@ Indeed, note that the third line returned has only a "Who" to match our pattern,
 <sup>1</sup> Most command-line flags come in two equivalent forms: a short, usually single-letter version, which starts with one dash, and a longer, unabbreviated version, which starts with two dashes. Since they're easier to type and in more common use among "real" (ahem) CS folks, I'll be using the short forms.  
 <sup>2</sup> The lab report directions said to justify usefulness. I'm just trying to show both directions, so that was the use I had, but... here's the panicked justification I came up with after the fact. You're welcome.  
 <sup>3</sup> You noticed the alliteration, right? You noticed? Right? If you didn't now I've made you notice. Hah hah.  
-<sup>4</sup> Upon a re-read I realize that I also switch between second-person (you/your/yours) and an inclusive first-person (we/our/ours) pronouns. Well, not going to figure out which to use now. Deal with it :)
+<sup>4</sup> Upon a re-read I realize that I also switch between second-person (you/your/yours) and first-person inclusive (we/our/ours) pronouns. Well, not going to figure out which to use now. Deal with it :)
 
 ## `-v`: "Not that, the other thing!"
 
