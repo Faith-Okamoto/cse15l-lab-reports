@@ -3,6 +3,7 @@
 1. [Week 0](lab-report-1-week-0.html)
 2. [Week 1](lab-report-2-week-1.html)
 3. [Week 3](lab-report-3-week-3.html)
+4. [Week 5](lab-report-4-week-5.html)
 
 # Basic information
 
@@ -27,9 +28,9 @@ Please **read all of the below**.
 
 ---
 
-## Part 2: What I'm doing right now, coding-wise.
+## Part 2: What was doing, coding-wise.
 
-I have a job at an on-campus lab. Currently they have me fiddling with a Shiny app. It uses R to create HTML. I knew the `ggplot2` package in R but I've had to learn new functions such as `dbGetQuery` and `renderUI`. There are a truly frightening number of packages used which I'm fairly unfamiliar with. See the top of the file:
+I have a job at an on-campus lab. Currently [when this was originally written] they have me fiddling with a Shiny app. It uses R to create HTML. I knew the `ggplot2` package in R but I've had to learn new functions such as `dbGetQuery` and `renderUI`. There are a truly frightening number of packages used which I'm fairly unfamiliar with. See the top of the file:
 
 ```
 library(shiny)
