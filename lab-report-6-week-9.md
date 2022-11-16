@@ -1,4 +1,4 @@
-Have some context before I throw a giant code block at you. (I suppose that would be appreciated.) This is an autograder: it takes a reposity with some code, grades it based on certain criteria, then reports back what grade the code received. For `grade.sh`, as one might suspect from the extension, this is contained within a shell script. The reposity will be the first command-line argument (accessible via `$1`), and the grade will be printed to standard output. Enough dilly-dallying, time to see the code.
+Have some context before I throw a giant code block at you. (I suppose that would be appreciated.) This is an autograder: it takes a repository with some code, grades it based on certain criteria, then reports back what grade the code received. For `grade.sh`, as one might suspect from the extension, this is contained within a shell script. The repository will be the first command-line argument (accessible via `$1`), and the grade will be printed to standard output. Enough dilly-dallying, time to see the code.
 
 ```
 # make script quit if it has an error - mostly for debugging purposes
@@ -72,13 +72,13 @@ else
 fi
 ```
 
-Now you've seen the code. Let's watch it in action. Using [`GradeServer.java`](https://github.com/Faith-Okamoto/list-examples-grader/blob/main/GradeServer.java) this script can be set up to run via the broswer. That Java-based server will accept URL requests in the form of `https://localhost:4000/grade?repo=X`, then pass `X` to `grade.sh`, and finally take the output of the script for display in the browser. I'll show three examples.
+Now you've seen the code. Let's watch it in action. Using [`GradeServer.java`](https://github.com/Faith-Okamoto/list-examples-grader/blob/main/GradeServer.java) this script can be set up to run via the browser. That Java-based server will accept URL requests in the form of `https://localhost:4000/grade?repo=X`, then pass `X` to `grade.sh`, and finally take the output of the script for display in the browser. I'll show three examples.
 
 1. ![Browser shows "ListExamples.java file not found at top level; score is 0"](images/week9/filename.png)
     - Repository: https://github.com/ucsd-cse15l-f22/list-methods-filename
     - Grade: 0
 
-    This is a pretty early failure. Part of the specification was that a file called `ListExamples.java` had to be submitted. What happened here is the script cloned the given repo, `cd`'ed inside of it, and then promptly failed to find the file it was supposed to grade. No file to grade, no points to give! Now, there is a fine implmentation of the rest of the specification, but because it isn't within a file named as expected, the grader isn't going to bother to guess exactly how the student went wrong.
+    This is a pretty early failure. Part of the specification was that a file called `ListExamples.java` had to be submitted. What happened here is the script cloned the given repo, `cd`'ed inside of it, and then promptly failed to find the file it was supposed to grade. No file to grade, no points to give! Now, there is a fine implementation of the rest of the specification, but because it isn't within a file named as expected, the grader isn't going to bother to guess exactly how the student went wrong.
 2. ![Browser shows "ListExamples.java failed to compile (error with code 1); score is 0"](images/week9/compile.png)
     - Repository: https://github.com/ucsd-cse15l-f22/list-methods-compile-error
     - Grade: 0
@@ -96,7 +96,7 @@ Time to explain what is happening! You've seen the script, you've seen some exam
   # make script quit if it has an error - mostly for debugging purposes
   set -e
   ```
-    As the comment suggests, this overrides the default behavior of bash scripting and will cause `grade.sh` to immediatly exit upon any errors. It shouldn't do that - all lines which might error have this setting turned back to `set +e` - but best to be safe, especially when I was developing this script and needed quick, understandable debugging feedback.
+    As the comment suggests, this overrides the default behavior of bash scripting and will cause `grade.sh` to immediately exit upon any errors. It shouldn't do that - all lines which might error have this setting turned back to `set +e` - but best to be safe, especially when I was developing this script and needed quick, understandable debugging feedback.
 - ```
   # set up directory with student submission
   rm -rf student-submission
@@ -106,7 +106,7 @@ Time to explain what is happening! You've seen the script, you've seen some exam
   ```
     These commands all went off without a hitch (exit codes of `0` 'round the table), but then, given that the repo link works, they were always going to. They, from first to last, get rid of any currently-existing `student-submission` directory (so the name becomes available), clone the given repository into a new `student-submission` directory, copy the tester file into that directory, and finally move into the new directory (as that's now where all the files are). Nothing produces either standard error or standard output.
     
-    Of particular note is the `git clone` line. Its `--quiet` option supresses *all* output, whether standard output such as `Cloning into 'student-submission'...`, or standard error. This is done since the grader is trying to run under the hood. It manages to exit with code `0` because the repository it's passed actually exists.
+    Of particular note is the `git clone` line. Its `--quiet` option suppresses *all* output, whether standard output such as `Cloning into 'student-submission'...`, or standard error. This is done since the grader is trying to run under the hood. It manages to exit with code `0` because the repository it's passed actually exists.
 - Now we get to a succession of `if` statements! This section basically checks to see whether some surface-level specifications were met. Our intrepid submission passes them all, but let's see why.
     - ```
       if [[ ! -f ListExamples.java ]]
@@ -150,7 +150,7 @@ Time to explain what is happening! You've seen the script, you've seen some exam
   ```
     As teased before, we've reached a command which has a real and expected possibility of producing an error. The script at this point has no idea what lies within `ListExamples.java`, except that all the signatures seem to be in order. *Anything* could happen when it's compiled with `javac`. For this reason, the script is set to not immediately stop on an error (`set +e`), any potential error output is redirected into a file, and the exit code of the `javac` command is saved into a variable.
 
-    And error it did! Since our repository's `ListExamples.java` file has a compiliation error, the `javac` command will produce some standard error, dutifally stored in `error.txt` to avoid cluttering up the console. The exit code, as you've seen before, is `1`: nonzero! If `set -e` were active the script would stop here, before we could explain the grade. No standard output is produced, however. (And remember, the standard error which was made wasn't output to the user.) Once this dangerous section is done with, `set -e` is turned back on. The grader forges onwards.
+    And error it did! Since our repository's `ListExamples.java` file has a compilation error, the `javac` command will produce some standard error, dutifully stored in `error.txt` to avoid cluttering up the console. The exit code, as you've seen before, is `1`: nonzero! If `set -e` were active the script would stop here, before we could explain the grade. No standard output is produced, however. (And remember, the standard error which was made wasn't output to the user.) Once this dangerous section is done with, `set -e` is turned back on. The grader forges onwards.
 - ```
   # make sure the ListExamples class compiled
   if [[ $EXIT -ne 0 ]]
