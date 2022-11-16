@@ -4,7 +4,8 @@
 2. [Week 1](lab-report-2-week-1.html)
 3. [Week 3](lab-report-3-week-3.html)
 4. [Week 5](lab-report-4-week-5.html)
-4. [Week 7](lab-report-5-week-7.html)
+5. [Week 7](lab-report-5-week-7.html)
+6. [Week 9](lab-report-6-week-9.html)
 
 # Basic information
 
